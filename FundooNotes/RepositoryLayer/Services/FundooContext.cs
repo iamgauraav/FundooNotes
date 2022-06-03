@@ -13,6 +13,6 @@ namespace RepositoryLayer.Services
         {
         }
 
-        public DbSet<User> user { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

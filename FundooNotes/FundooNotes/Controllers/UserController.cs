@@ -32,5 +32,21 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+        [HttpPost("Login/{Email}/{Password}")]
+        public ActionResult LoginUser(string Email, string Password)
+        {
+            try
+            {
+                string token = this.userBL.LoginUser(Email, Password);
+                return this.Ok(new { success = true, message = "Login Sucessfull", token = token });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+
+        }
     }
 }
