@@ -28,16 +28,29 @@ namespace BussinessLayer.Services
             }
         }
 
+        public bool ForgetPassword(string Email)
+        {
+            try
+            {
+                return this.userRl.ForgetPassword(Email);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public string LoginUser(string Email, string Password)
         {
             try
             {
                 return this.userRl.LoginUser(Email, Password);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
     }
