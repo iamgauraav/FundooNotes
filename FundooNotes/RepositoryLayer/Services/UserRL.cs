@@ -15,12 +15,12 @@ namespace RepositoryLayer.Services
 {
     public class UserRL : IUserRL
     {
-        FundooContext Fundoocontext;
+        FundooContext fundoocontext;
         IConfiguration configuration;
 
         public UserRL(FundooContext fundoocontext, IConfiguration configuration)
         {
-            this.Fundoocontext = fundoocontext;
+            this.fundoocontext = fundoocontext;
             this.configuration = configuration;
         }
         public void AddUser(UserPostModel userPostModel)
@@ -31,12 +31,12 @@ namespace RepositoryLayer.Services
                 user.FirstName = userPostModel.FirstName;
                 user.LastName = userPostModel.LastName;
                 user.Email = userPostModel.Email;
-                user.Password = userPostModel.Password;
+                user.Password = Encryption.EncodePasswordToBase64(userPostModel.Password);
                 user.Address = userPostModel.Address;
                 user.CreatedDate = DateTime.Now; 
                 user.ModifiedDate = DateTime.Now;
-                Fundoocontext.Add(user);
-                Fundoocontext.SaveChanges(); 
+                fundoocontext.Add(user);
+                fundoocontext.SaveChanges(); 
             }
             catch (Exception)
             {
@@ -49,7 +49,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var user = Fundoocontext.User.FirstOrDefault(u => u.Email == Email);
+                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email);
                 if (user == null)
                 {
                     return false;
@@ -112,7 +112,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var user = Fundoocontext.User.FirstOrDefault(u => u.Email == Email);
+                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email);
                 if (user == null)
                 {
                     return null;
@@ -147,7 +147,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var user = Fundoocontext.User.FirstOrDefault(u => u.Email == Email && u.Password == Password);
+                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email && u.Password == Encryption.DecodeFrom64( Password));
                 if (user != null)
                 {
                    return GenerateJWToken(Email, user.UserId);
@@ -162,7 +162,7 @@ namespace RepositoryLayer.Services
         }
         private string GenerateJWToken(string Email ,  int userId)
         {
-            var user = Fundoocontext.User.FirstOrDefault(u => u.Email == Email );
+            var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email );
             if (user == null)
             {
                 return null;
@@ -184,6 +184,30 @@ namespace RepositoryLayer.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public bool ResetPassword(string Email,PasswordModel passwordModel)
+        {
+            try
+            {
+                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email);
+                if (user == null)
+                {
+                    return false;
+                }
+                if (passwordModel.NewPassword != passwordModel.ConfirmPassword)
+                {
+                    return false;
+                }
+                user.Password = Encryption.EncodePasswordToBase64(passwordModel.NewPassword);
+                fundoocontext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

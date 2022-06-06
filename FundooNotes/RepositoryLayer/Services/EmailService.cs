@@ -22,7 +22,7 @@ namespace RepositoryLayer.Services
                 msgObj.To.Add(Email);
                 msgObj.From = new MailAddress("apitestdemo123@gmail.com");
                 msgObj.Subject = "Password Reset Link";
-                msgObj.Body = $"www.FundooNotes.com/reset-password/{token}";
+                msgObj.Body = $"www.fundooNotes.com/reset-password/{token}";
                 client.Send(msgObj);
             }
         }

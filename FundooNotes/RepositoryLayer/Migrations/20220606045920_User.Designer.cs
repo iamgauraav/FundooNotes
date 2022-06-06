@@ -10,7 +10,7 @@ using RepositoryLayer.Services;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    [Migration("20220602142451_User")]
+    [Migration("20220606045920_User")]
     partial class User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("user");
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }
