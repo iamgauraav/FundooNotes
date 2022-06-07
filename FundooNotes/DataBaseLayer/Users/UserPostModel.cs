@@ -19,6 +19,6 @@ namespace DataBaseLayer.Users
         [Required]
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$", ErrorMessage = "Please Enter a Valid Password")]
         public string Password { get; set; }
-        public string Address { get; set; }    
+        public string Address { get; set; }      
     }
 }

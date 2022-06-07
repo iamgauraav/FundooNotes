@@ -147,7 +147,8 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email && u.Password == Encryption.DecodeFrom64( Password));
+                var user = fundoocontext.User.FirstOrDefault(u => u.Email == Email);
+                Password = Encryption.DecodeFrom64(user.Password);
                 if (user != null)
                 {
                    return GenerateJWToken(Email, user.UserId);
