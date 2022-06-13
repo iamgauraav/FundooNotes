@@ -55,5 +55,18 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+
+        public  Task<Note> GetNote(int UserId, int NoteId)
+        {
+            try
+            {
+                return  this.noteRL.GetNote(UserId, NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

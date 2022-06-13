@@ -63,6 +63,7 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
         public async Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel)
         {
             try
@@ -87,5 +88,20 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
+
+        public async Task<Note> GetNote(int UserId, int NoteId)
+        {
+            try
+            {
+                return await fundoocontext.Note.FirstOrDefaultAsync(u => u.UserId == UserId && u.NoteId == NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

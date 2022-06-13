@@ -14,6 +14,8 @@ namespace RepositoryLayer.Interfaces
         Task ChangeColor(int UserId, int NoteId, string Color);
 
         Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel);
+
+        Task <Note> GetNote(int UserId, int NoteId);
         
     }
 }
