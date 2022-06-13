@@ -8,10 +8,10 @@ namespace DataBaseLayer.Users
     public class UserPostModel
     {
         [Required]
-        [RegularExpression("^[A-Z]{1}[a-z]{3,}$", ErrorMessage = "name starts with Cap and has minimum 8 characters")]
+        [RegularExpression("^[A-Z]{1}[a-z]{3,}$", ErrorMessage = "name starts with Cap and has minimum 3 characters")]
         public string FirstName { get; set; }
         [Required]
-        [RegularExpression("^[A-Z]{1}[a-z]{3,}$", ErrorMessage = "name starts with Cap and has minimum 8 characters")]
+        [RegularExpression("^[A-Z]{1}[a-z]{3,}$", ErrorMessage = "name starts with Cap and has minimum 3 characters")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression("^[a-z 0-9]{3,}[@][a-z]{4,}[.][a-z]{3,}$", ErrorMessage = "Please Enter a Valid Email")]

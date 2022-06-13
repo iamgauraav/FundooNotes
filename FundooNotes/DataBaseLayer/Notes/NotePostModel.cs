@@ -12,6 +12,6 @@ namespace DataBaseLayer.Notes
         [Required]
         public string Description { get; set; }
         [Required]
-        public string Color { get; set; }
+        public string Color { get; set; } 
     }
 }

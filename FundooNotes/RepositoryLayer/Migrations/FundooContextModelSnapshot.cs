@@ -19,6 +19,22 @@ namespace RepositoryLayer.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("RepositoryLayer.Entities.Collaborator", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CollabEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "NoteId");
+
+                    b.ToTable("Collaborator");
+                });
+
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {
                     b.Property<int>("NoteId")
@@ -61,8 +77,6 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("NoteId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Note");
                 });
 
@@ -97,17 +111,6 @@ namespace RepositoryLayer.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
-                {
-                    b.HasOne("RepositoryLayer.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
