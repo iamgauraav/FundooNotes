@@ -55,7 +55,31 @@ namespace FundooNotes.Controllers
                     return this.BadRequest(new { success = false, messagge = "Note Does Not Exists" });
                 }
                 await this.noteBL.ChangeColor(userId,NoteId,Color);
-                return this.Ok(new {sucess = true, message = "Changed Color Successfully"});
+                return this.Ok(new {sucess = true, message = "Changed Color Successfully"}); 
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPut("UpdateNote/{NoteId}")]
+
+        public async Task<ActionResult> UpdateNote(int NoteId, UpdateModel updateModel)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(e => e.UserId == userId && e.NoteId == NoteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, messagge = "Note Does Not Exists" });
+                }
+                await this.noteBL.UpdateNote(userId,NoteId,updateModel);
+                return this.Ok(new { sucess = true, message = "Update Successfully" });   
 
             }
             catch (Exception)

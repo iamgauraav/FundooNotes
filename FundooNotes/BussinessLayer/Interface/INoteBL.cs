@@ -12,5 +12,7 @@ namespace BussinessLayer.Interface
         Task AddNote(int UserId, NotePostModel notePostModel);
 
         Task ChangeColor(int UserId, int NoteId, string Color);
+
+        Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel);
     }
 }

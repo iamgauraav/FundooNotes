@@ -43,6 +43,17 @@ namespace BussinessLayer.Services
             }
         }
 
-       
+        public async Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel )
+        {
+            try
+            {
+                await noteRL?.UpdateNote(UserId, NoteId, updateModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

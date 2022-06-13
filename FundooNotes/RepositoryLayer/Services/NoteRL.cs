@@ -63,5 +63,29 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (note != null)
+                {
+                    note.Title = updateModel.Title;
+                    note.Description = updateModel.Description;
+                    note.Color = updateModel.Color;
+                    note.IsArchieve = updateModel.IsArchieve;
+                    note.IsPin = updateModel.IsPin;
+                    note.IsTrash = updateModel.IsTrash;
+                    await fundoocontext.SaveChangesAsync();
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
