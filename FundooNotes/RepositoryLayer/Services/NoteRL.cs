@@ -167,5 +167,48 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task TrashNote(int UserId, int NoteId)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        note.IsTrash = true;
+
+                    }
+                    else
+                    {
+                        note.IsTrash = false;
+                    }
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public async Task RemoveNote(int NoteId, int UserId)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == UserId);
+                if (note != null)
+                {
+                    fundoocontext.Note.Remove(note);
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }
