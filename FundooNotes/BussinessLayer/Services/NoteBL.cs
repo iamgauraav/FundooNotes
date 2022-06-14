@@ -81,5 +81,18 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+
+        public async Task ArchiveNote(int UserId, int NoteId)
+        {
+            try
+            {
+                await noteRL.ArchiveNote(UserId, NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

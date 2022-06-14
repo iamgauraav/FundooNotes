@@ -130,5 +130,42 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
+        public async Task ArchiveNote(int UserId, int NoteId)
+        {
+            try
+            {
+                try
+                {
+                    var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                    if (note != null)
+                    {
+                        if (note.IsTrash == false)
+                        {
+                            if (note.IsArchieve == true)
+                            {
+                                note.IsArchieve = false;
+
+                            }
+                            if (note.IsArchieve == false)
+                            {
+                                note.IsArchieve = true;
+                            }
+                        }
+                        await fundoocontext.SaveChangesAsync();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
