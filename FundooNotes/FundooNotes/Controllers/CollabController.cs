@@ -44,7 +44,24 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
-
-
+        [Authorize]
+        [HttpDelete("DeleteCollaborator/{NoteId}")]
+        public async Task<ActionResult> RemoveCollab(int NoteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserID", StringComparison.InvariantCultureIgnoreCase));
+                int UserID = Int32.Parse(userid.Value);
+                var note = fundooContext.Collaborator.FirstOrDefault(x => x.UserId == UserID && x.NoteId == NoteId);
+                if (note == null)
+                    return this.BadRequest(new { success = false, message = "Sorry! This note does not exist." });
+                await this.collabBL.RemoveCollab(UserID, NoteId);
+                return this.Ok(new { success = true, message = "Collababorators Removed Successfully" });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

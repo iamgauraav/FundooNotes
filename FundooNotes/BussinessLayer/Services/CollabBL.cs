@@ -28,5 +28,17 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+        public async Task RemoveCollab(int UserId, int NoteId)
+        {
+            try
+            {
+                await this.collabRL.RemoveCollab(NoteId, UserId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
