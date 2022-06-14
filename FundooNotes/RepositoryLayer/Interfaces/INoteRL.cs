@@ -22,5 +22,7 @@ namespace RepositoryLayer.Interfaces
         Task ArchiveNote(int UserId, int NoteId);
 
         Task TrashNote(int UserId, int NoteId);
+
+        Task RemoveNote(int UserId, int NoteId);
     }
 }

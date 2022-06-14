@@ -34,7 +34,7 @@ namespace RepositoryLayer.Services
                 note.IsArchieve = false;
                 note.IsRemainder = false;
                 note.CreateDate = DateTime.Now;
-                note.ModifiedDate = DateTime.Now;  
+                note.ModifiedDate = DateTime.Now;
                 fundoocontext.Add(note);
                 await fundoocontext.SaveChangesAsync();
 
@@ -45,17 +45,17 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
-        public async Task ChangeColor(int UserId, int NoteId,string Color )
+        public async Task ChangeColor(int UserId, int NoteId, string Color)
         {
             try
             {
-                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId &&  u.NoteId == NoteId);
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
                 if (note != null)
                 {
                     note.Color = Color;
                     await fundoocontext.SaveChangesAsync();
                 }
-            
+
             }
             catch (Exception)
             {
@@ -125,7 +125,7 @@ namespace RepositoryLayer.Services
                     await fundoocontext.SaveChangesAsync();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }

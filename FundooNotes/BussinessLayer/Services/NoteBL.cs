@@ -107,5 +107,18 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+        public async Task RemoveNote(int NoteId, int UserId)
+        {
+            try
+            {
+                await this.noteRL.RemoveNote(NoteId, UserId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }
