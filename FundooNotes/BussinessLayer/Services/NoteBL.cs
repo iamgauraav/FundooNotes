@@ -68,5 +68,18 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+
+        public async Task PinNote(int UserId, int NoteId)
+        {
+            try
+            {
+                await noteRL.PinNote(UserId, NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

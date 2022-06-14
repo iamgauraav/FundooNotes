@@ -43,7 +43,7 @@ namespace FundooNotes.Controllers
         [Authorize]
         [HttpPut("ChangeColor/{NoteId}/{Color}")]
 
-        public async Task<ActionResult> ChangeColor( int NoteId, string Color)
+        public async Task<ActionResult> ChangeColor(int NoteId, string Color)
         {
             try
             {
@@ -54,8 +54,8 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new { success = false, messagge = "Note Does Not Exists" });
                 }
-                await this.noteBL.ChangeColor(userId,NoteId,Color);
-                return this.Ok(new {sucess = true, message = "Changed Color Successfully"}); 
+                await this.noteBL.ChangeColor(userId, NoteId, Color);
+                return this.Ok(new { sucess = true, message = "Changed Color Successfully" });
 
             }
             catch (Exception)
@@ -78,8 +78,8 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new { success = false, messagge = "Note Does Not Exists" });
                 }
-                await this.noteBL.UpdateNote(userId,NoteId,updateModel);
-                return this.Ok(new { sucess = true, message = "Update Successfully" });   
+                await this.noteBL.UpdateNote(userId, NoteId, updateModel);
+                return this.Ok(new { sucess = true, message = "Update Successfully" });
 
             }
             catch (Exception)
@@ -100,6 +100,30 @@ namespace FundooNotes.Controllers
                 Note note = await this.noteBL.GetNote(userId, NoteId);
                 return this.Ok(new { sucess = true, message = "Required note is:", data = note });
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPut("PinNote/{NoteId}")]
+        public async Task<ActionResult> PinNote(int NoteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(e => e.UserId == UserId && e.NoteId == NoteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note Does not Exist " });
+                }
+                await this.noteBL.PinNote(NoteId, UserId);
+                return this.Ok(new { success = true, message = "Note Pinned Successfully" });
+            }
+
+
             catch (Exception)
             {
 
