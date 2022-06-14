@@ -200,6 +200,21 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
-
+        [Authorize]
+        [HttpGet("GetallNote")]
+        public async Task<ActionResult> GetAllNotes()
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                List<Note> note = await this.noteBL.GetallNotes(UserId);
+                return this.Ok(new { success = true, message = "Required note is:", data = note });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
