@@ -1,4 +1,5 @@
 ﻿using DataBaseLayer.Collaborator;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
@@ -55,6 +56,21 @@ namespace RepositoryLayer.Services
             {
 
                 throw ex;
+            }
+        }
+        public async Task<List<Collaborator>> GetallCollab(int UserId)
+        {
+            try
+            {
+                List<Collaborator> collab = new List<Collaborator>();
+
+                collab = await fundoocontext.Collaborator.Where(x => x.UserId == UserId).ToListAsync();
+                return collab;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

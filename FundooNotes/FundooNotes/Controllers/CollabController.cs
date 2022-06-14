@@ -63,5 +63,21 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpGet("GetallCollab")]
+        public async Task<ActionResult> GetallCollab()
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                List<Collaborator> collab = await this.collabBL.GetallCollab(UserId);
+                return this.Ok(new { success = true, message = " List of all Collaborators :", data = collab });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
