@@ -42,5 +42,23 @@ namespace RepositoryLayer.Services
                 Console.WriteLine(e.InnerException.Message);
             }
         }
+        public async Task Removelabel(int UserId, int NoteId)
+        {
+            try
+            {
+                var level = fundoocontext.Label.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == UserId);
+                if (level != null)
+                {
+                    fundoocontext.Label.Remove(level);
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }

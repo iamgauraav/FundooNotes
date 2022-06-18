@@ -10,5 +10,7 @@ namespace BussinessLayer.Interface
     public interface ILabelBL
     {
         Task CreateLabel(int UserId, int NoteId, string LabelName);
+
+        Task Removelabel(int UserId, int NoteId);
     }
 }
