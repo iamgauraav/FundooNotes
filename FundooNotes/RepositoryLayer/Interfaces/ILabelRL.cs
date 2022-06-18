@@ -15,5 +15,7 @@ namespace RepositoryLayer.Interfaces
 
         Task<Label> GetLabel(int UserId, int NoteId);
 
+        Task<List<Label>> GetAllLabel(int UserId);
+
     }
 }

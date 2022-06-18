@@ -79,5 +79,23 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpGet("GetAllLabel")]
+
+        public async Task<ActionResult> GetAllLabel()
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                List<Label> level = await this.labelBL.GetAllLabel(UserId);
+                return this.Ok(new { success = true, message = " List of all Label :", data = level });
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

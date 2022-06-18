@@ -14,5 +14,7 @@ namespace BussinessLayer.Interface
         Task Removelabel(int UserId, int NoteId);
 
         Task<Label> GetLabel(int UserId, int NoteId);
+
+        Task<List<Label>> GetAllLabel(int UserId);
     }
 }

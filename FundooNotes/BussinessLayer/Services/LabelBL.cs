@@ -54,5 +54,18 @@ namespace BussinessLayer.Services
                 throw ex;
             }
         }
+        public async Task<List<Label>> GetAllLabel(int UserId)
+        {
+            try
+            {
+                return await this.labelRL.GetAllLabel(UserId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
 }
