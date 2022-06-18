@@ -16,5 +16,8 @@ namespace BussinessLayer.Interface
         Task<Label> GetLabel(int UserId, int NoteId);
 
         Task<List<Label>> GetAllLabel(int UserId);
+
+        Task UpdateLabel(int UserId, int NoteId, string LabelName);
+
     }
 }

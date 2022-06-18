@@ -97,5 +97,26 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+        [Authorize]
+        [HttpPut("UpdateLabel/{NoteId}")]
+        public async Task<ActionResult> UpdateLabel(int NoteId, string LabelName)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                var lebel = fundooContext.Label.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == userId);
+                if (lebel == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note not added" });
+                }
+                await this.labelBL.UpdateLabel(userId, NoteId, LabelName);
+                return this.Ok(new { success = true, message = $"Label updated Successfully" });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

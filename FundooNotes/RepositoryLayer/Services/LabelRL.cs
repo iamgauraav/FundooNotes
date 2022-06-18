@@ -86,8 +86,22 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
-
-
-
+        public async Task UpdateLabel(int UserId, int NoteId, string LabelName)
+        {
+            try
+            {
+                var label = fundoocontext.Label.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (label == null)
+                {
+                    throw new Exception("No Label Exist");
+                }
+                label.LabelName = LabelName;
+                await fundoocontext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
