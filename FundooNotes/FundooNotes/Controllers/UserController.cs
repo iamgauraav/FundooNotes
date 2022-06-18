@@ -14,6 +14,7 @@ namespace FundooNotes.Controllers
     {
         FundooContext fundoContext;
         IUserBL userBL;
+        Encryption Encryption;
 
         public UserController(FundooContext fundoContext, IUserBL userBL)
         {
@@ -40,9 +41,16 @@ namespace FundooNotes.Controllers
             try
             {
                 var user = fundoContext.User.FirstOrDefault(u=>u.Email == Email);
+                string password = Encryption.DecodeFrom64(user.Password);
                 if (user == null)
                 {
                     return this.BadRequest(new { success = false, message = "Email does not Exists " });
+                }
+
+                var user1 = fundoContext.User.FirstOrDefault(u=>u.Email == Email && password == Password);
+                if (user1 == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Password Invalid " });
                 }
                 string token = this.userBL.LoginUser(Email, Password);
                 return this.Ok(new { success = true, message = "Login Sucessfull", token = token });

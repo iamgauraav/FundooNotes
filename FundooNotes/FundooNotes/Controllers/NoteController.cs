@@ -226,8 +226,9 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+
         [Authorize]
-        [HttpGet("GetAllNotesRedisCache")]
+        [HttpGet("GetAllNoteRadisCache")]
         public async Task<ActionResult> GetAllNoteByRedisCache()
         {
             try

@@ -41,7 +41,6 @@ namespace FundooNotes
             services.AddControllers();
             services.AddDbContext<FundooContext>(x => x.UseSqlServer(Configuration.GetConnectionString("Constr")));
             
-
             services.AddSwaggerGen(setup =>
             {
                 // Include 'SecurityScheme' to use JWT Authentication
@@ -86,12 +85,22 @@ namespace FundooNotes
 
                 };
             });
+            services.AddDistributedRedisCache(
+                options =>
+                {
+                    options.Configuration = "Localhost:6379";
+                }
+                );
+
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<INoteRL, NoteRL>();
             services.AddTransient<INoteBL, NoteBL>();
             services.AddTransient<ICollabRL, CollabRL>();
             services.AddTransient<ICollabBL, CollabBL>();
+            services.AddTransient<ILabelRL, LabelRL>();
+            services.AddTransient<ILabelBL, LabelBL>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
