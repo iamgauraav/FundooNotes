@@ -59,6 +59,19 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+        public async Task<Label> GetLabel(int UserId, int NoteId)
+        {
+            try
+            {
+                return await fundoocontext.Label.FirstOrDefaultAsync(u => u.UserId == UserId && u.NoteId == NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }

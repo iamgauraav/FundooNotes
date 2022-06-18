@@ -12,5 +12,7 @@ namespace BussinessLayer.Interface
         Task CreateLabel(int UserId, int NoteId, string LabelName);
 
         Task Removelabel(int UserId, int NoteId);
+
+        Task<Label> GetLabel(int UserId, int NoteId);
     }
 }

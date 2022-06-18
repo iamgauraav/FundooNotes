@@ -61,5 +61,23 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpGet("GetParticularLabel/{NoteId}")]
+
+        public async Task<ActionResult> GetLabel(int NoteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                Label label = await this.labelBL.GetLabel(userId, NoteId);
+                return this.Ok(new { sucess = true, message = "Required label is:", data = label });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
